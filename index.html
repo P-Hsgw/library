@@ -8,11 +8,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="wrapper">
+   <form class="form-horizontal">
+    <fieldset>
+    <!-- Form Name -->
+    <legend>Add books</legend>
+
+    <label for="btitle">Book title:</label>
+    <input type="text" id="btitle" name="btitle"><br><br>
+    <label for="bauthor">Book author:</label>
+    <input type="text" id="bauthor" name="bauthor"><br><br>
+    <label for="bpages">Number of pages:</label>
+    <input type="number" id="bpages" name="bpages"><br><br>
+    <label for="bread">Did you finish reading?</label>
+    <select id="bread" name="bread">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>    
+    <input id="fbutton" type="submit" value="Submit">
+    </fieldset>
+     </form>
+  </div>
   <div class="display">
-    <p id="title"></p>
-    <p id="author"></p>
-    <p id="pages"></p>
-    <p id="read"></p>
   </div>
 
 

@@ -1,8 +1,4 @@
 const display = document.querySelector(".display")
-const title = document.getElementById("title")
-const author = document.getElementById("author")
-const pages = document.getElementById("pages")
-const read = document.getElementById("read")
 
 let myLibrary = [];
 
@@ -21,26 +17,60 @@ function addToLibrary(title, author, pages, read) {
   myLibrary.push(newBook)
 }
 
-function createDiv (param) {
-  let newDiv = document.createElement("div"); // add class / id / data type
+function createCard (param) {
+  let newDiv = document.createElement("div");
+  let newTitle = document.createElement("p");
+  let newAuthor = document.createElement("p");
+  let newPages = document.createElement("p");
+
   newDiv.classList.add("card")
   newDiv.setAttribute("id", `${param}`); // add paragraphs for each class element
-  display.appendChild(newDiv) // display classess
+  newTitle.setAttribute("id", `title${param}`)
+  newAuthor.setAttribute("id", `author${param}`)
+  newPages.setAttribute("id", `pages${param}`)
+
+  newDiv.appendChild(newTitle)
+  newDiv.appendChild(newAuthor)
+  newDiv.appendChild(newPages)
+  display.appendChild(newDiv)
 }
 
 function displayBooks() {
   myLibrary.forEach (function (book, i) {
-    createDiv (i)
-    document.getElementById(`${i}`).innerHTML = `Title: ${book.title}, Author: ${book.author}, Pages: ${book.pages}`
+    createCard (i)
+    document.getElementById(`title${i}`).innerHTML = `${book.title}`
+    document.getElementById(`author${i}`).innerHTML = `${book.author}`
+    document.getElementById(`pages${i}`).innerHTML = `${book.pages} pages`
   })
 }
 
 addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
 addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
 
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
 
 
 displayBooks()
 console.log(myLibrary)
 
-// Create new card for each book when displaying Books - each with data attribute corresponding to array index
+
+// document.getElementById("uniqueID").value;

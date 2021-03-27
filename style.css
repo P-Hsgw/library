@@ -1,13 +1,40 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.form-horizontal {
+  width: 250px;
+}
+
+#fbutton {
+  margin: 10px;
+}
+
+
 .display {
   display: flex;
-  width: 1000px;
+  width: 90%;
   margin: 0 auto;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .card {
-  width: 100px;
+  width: calc((100% / 4) - 2%);
   border-style: dashed;
-  margin: 10px;
+}
+
+.card + .card {
+  margin-left: 2%;
+}
+
+.card:nth-of-type(4n+1) {
+  margin-left: 0;
+}
+
+.card:nth-of-type(n+5) {
+  margin-top: 2%;
 }
