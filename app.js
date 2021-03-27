@@ -1,4 +1,4 @@
-const display = document.getElementById("display")
+const display = document.querySelector(".display")
 const title = document.getElementById("title")
 const author = document.getElementById("author")
 const pages = document.getElementById("pages")
@@ -36,7 +36,9 @@ function displayBooks() {
 }
 
 addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
-addToLibrary("Harry Potter", "J. K. Rowing", 6000, false)
+addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+
+
 
 displayBooks()
 console.log(myLibrary)
