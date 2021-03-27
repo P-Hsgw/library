@@ -4,9 +4,6 @@ const author = document.getElementById("author")
 const pages = document.getElementById("pages")
 const read = document.getElementById("read")
 
-
-
-
 let myLibrary = [];
 
 function Book (title, author, pages, read) {
@@ -24,16 +21,23 @@ function addToLibrary(title, author, pages, read) {
   myLibrary.push(newBook)
 }
 
+function createDiv (param) {
+  let newDiv = document.createElement("div"); // add class / id / data type
+  newDiv.classList.add("card")
+  newDiv.setAttribute("id", `${param}`); // add paragraphs for each class element
+  display.appendChild(newDiv) // display classess
+}
+
 function displayBooks() {
-  myLibrary.forEach (function (book) {
-    title.innerHTML = book.title;
-    author.innerHTML = book.author;
-    pages.innerHTML = book.pages;
-    read.innerHTML = book.read;
+  myLibrary.forEach (function (book, i) {
+    createDiv (i)
+    document.getElementById(`${i}`).innerHTML = `Title: ${book.title}, Author: ${book.author}, Pages: ${book.pages}`
   })
 }
 
 addToLibrary("The Lord of the Rings", "J. R. R. Tolkien", 1000, true)
+addToLibrary("Harry Potter", "J. K. Rowing", 6000, false)
+
 displayBooks()
 console.log(myLibrary)
 
