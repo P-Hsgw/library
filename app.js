@@ -1,7 +1,18 @@
 const display = document.querySelector(".display")
 const fbtn = document.getElementById("fbutton")
 
-let myLibrary = [];
+let myLibrary = []
+
+if(!localStorage.getItem('library')) {
+  ;
+} else {
+  let retrievedData = localStorage.getItem("library");
+  // myLibrary = JSON.parse(retrievedData);
+  console.log(myLibrary)
+  displayBooks()
+}
+
+
 // Remember to handle errors - no input, negative pages, too long input, maximum myLibrary length
 function Book (title, author, pages, read) {
   this.title = title
@@ -14,11 +25,11 @@ function Book (title, author, pages, read) {
 Book.prototype.isRead = function () {
 
   console.log( "book is read")
-
 }
 function addToLibrary(title, author, pages, read) {
   let newBook = new Book (title, author, pages, read)
   myLibrary.push(newBook)
+  localStorage.setItem("library", JSON.stringify(myLibrary))
 }
 
 function createCard (param) {
@@ -66,6 +77,15 @@ function displayBook() {
  document.getElementById(`pages${i}`).innerHTML = `${book.pages} pages`
 }
 
+function displayBooks() {
+  myLibrary.forEach (function (book, i) {
+    createCard(i+1)
+    document.getElementById(`title${i+1}`).innerHTML = `${book.title}`
+    document.getElementById(`author${i+1}`).innerHTML = `${book.author}`
+    document.getElementById(`pages${i+1}`).innerHTML = `${book.pages} pages`
+  })
+}
+
 function getInputValue(){
   // Selecting the input element and getting its value 
   let inputTitle = document.getElementById("btitle").value;
@@ -87,19 +107,24 @@ function handler(e) {
     let card = document.getElementById(`card${e.target.id}`)
     card.remove()
     delete myLibrary[e.target.id-1]
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   }
   if (e.target.classList == "read") {
   if (myLibrary[e.target.dataset.index-1].read == true) {
     myLibrary[e.target.dataset.index-1].read = false
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   } else {
     myLibrary[e.target.dataset.index-1].read = true
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   }
   if (e.target.classList == "read" && myLibrary[e.target.dataset.index-1].read == true) {
     e.target.style.backgroundColor = "green"
     e.target.innerHTML = "I've read this book already"
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   }else {
     e.target.style.backgroundColor = "red"
     e.target.innerHTML = "I didn't read it yet"
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   }
   console.log(myLibrary[e.target.dataset.index-1].read)
   }
@@ -110,5 +135,4 @@ fbtn.addEventListener("click", () => {
   getInputValue()
   displayBook()
   console.log(myLibrary)
-  console.log(myLibrary[0])
 })
