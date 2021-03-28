@@ -8,10 +8,15 @@
   width: 250px;
 }
 
-#fbutton {
+.html_button {
+  width: 60px;
+  height: 215px;
   margin: 10px;
 }
 
+.dom_button {
+  margin: 7px;
+}
 
 .display {
   display: flex;

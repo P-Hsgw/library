@@ -51,9 +51,11 @@ function createCard (param) {
   newAuthor.setAttribute("id", `author${param}`);
   newPages.setAttribute("id", `pages${param}`);
   newRemove.classList.add("rbutton");
+  newRemove.classList.add("dom_button");
   newRemove.setAttribute("id", `${param}`);
   newRemove.innerHTML = "Remove";
   newRead.classList.add("read")
+  newRead.classList.add("dom_button")
   newRead.setAttribute("data-index", `${param}`);
   newRead.setAttribute("id", `read${param}`);
  
