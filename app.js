@@ -4,7 +4,7 @@ const sbtn = document.getElementById("sbutton")
 
 let myLibrary = []
 
-// If localStorage is occupied - upload it to myLibrary
+// If localStorage is occupied - upload content to myLibrary
 if(!localStorage.getItem('library')) {
   ;
 }  else {
@@ -24,9 +24,15 @@ function Book (title, author, pages, read) {
 
 // Add new book to the library, as well as to local storage
 function addToLibrary(title, author, pages, read) {
-  let newBook = new Book (title, author, pages, read)
-  myLibrary.push(newBook)
-  localStorage.setItem(" ", JSON.stringify(myLibrary))
+  if (title == "" || author == "" || pages == "") {
+    console.log('Error - enter proper values')
+  } else if (title.length > 30 || author.length > 30 || pages.length > 7) {
+    console.log('Error - values too long')
+  } else {
+    let newBook = new Book (title, author, pages, read)
+    myLibrary.push(newBook)
+    localStorage.setItem(" ", JSON.stringify(myLibrary))
+  }
 }
 
 // Create new card to display each book
@@ -134,12 +140,13 @@ function handler(e) {
 }
 // Event Bubble ends here
 
+// Add new cards with data provided by the user
 fbtn.addEventListener("click", () => {
   getInputValue()
   displayBook()
-  console.log(myLibrary)
 })
 
+// Remove all cards and clear localStorage
 sbtn.addEventListener("click", () => {
   localStorage.clear("library")
   myLibrary = []
