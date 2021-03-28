@@ -1,5 +1,6 @@
 const display = document.querySelector(".display")
 const fbtn = document.getElementById("fbutton")
+const sbtn = document.getElementById("sbutton")
 
 let myLibrary = []
 
@@ -25,7 +26,7 @@ function Book (title, author, pages, read) {
 function addToLibrary(title, author, pages, read) {
   let newBook = new Book (title, author, pages, read)
   myLibrary.push(newBook)
-  localStorage.setItem("library", JSON.stringify(myLibrary))
+  localStorage.setItem(" ", JSON.stringify(myLibrary))
 }
 
 // Create new card to display each book
@@ -137,4 +138,12 @@ fbtn.addEventListener("click", () => {
   getInputValue()
   displayBook()
   console.log(myLibrary)
+})
+
+sbtn.addEventListener("click", () => {
+  localStorage.clear("library")
+  myLibrary = []
+  while (display.firstChild) {
+    display.removeChild(display.lastChild);
+  }
 })
