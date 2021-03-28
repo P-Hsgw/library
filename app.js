@@ -3,14 +3,14 @@ const fbtn = document.getElementById("fbutton")
 
 let myLibrary = []
 
+// If localStorage is occupied - upload it to myLibrary
 if(!localStorage.getItem('library')) {
   ;
 }  else {
-    let retrievedData = localStorage.getItem("library");
-    myLibrary = JSON.parse(retrievedData);
-    console.log(myLibrary)
-    displayBooks()
-
+  let retrievedData = localStorage.getItem("library");
+  myLibrary = JSON.parse(retrievedData);
+  console.log(myLibrary)
+  displayBooks()
 }
 
 // Remember to handle errors - no input, negative pages, too long input, maximum myLibrary length
@@ -19,19 +19,16 @@ function Book (title, author, pages, read) {
   this.author = author
   this.pages = pages
   this.read = read
-
 }
 
-Book.prototype.isRead = function () {
-
-  console.log( "book is read")
-}
+// Add new book to the library, as well as to local storage
 function addToLibrary(title, author, pages, read) {
   let newBook = new Book (title, author, pages, read)
   myLibrary.push(newBook)
   localStorage.setItem("library", JSON.stringify(myLibrary))
 }
 
+// Create new card to display each book
 function createCard (param) {
   let newDiv = document.createElement("div");
   let newTitle = document.createElement("p");
@@ -53,14 +50,12 @@ function createCard (param) {
   newRead.setAttribute("data-index", `${param}`);
   newRead.setAttribute("id", `read${param}`);
  
-    if (myLibrary[param-1].read == true) {
-      newRead.style.backgroundColor = "green"
-      newRead.innerHTML = "I've read this book already"
+    if (myLibrary[param-1].read == true) { // Set up proper color of a "read" button 
+    newRead.style.backgroundColor = "green"
+    newRead.innerHTML = "I've read this book already"
     } else {
-      newRead.style.backgroundColor = "red"
-      newRead.innerHTML = "I didn't read it yet"
-    
-  
+    newRead.style.backgroundColor = "red"
+    newRead.innerHTML = "I didn't read it yet"
   }
 
   newDiv.appendChild(newTitle)
@@ -71,6 +66,7 @@ function createCard (param) {
   display.appendChild(newDiv)
 }
 
+// Display new book when the book is added
 function displayBook() {
  let book = myLibrary[myLibrary.length - 1]
  let i = myLibrary.length
@@ -80,6 +76,7 @@ function displayBook() {
  document.getElementById(`pages${i}`).innerHTML = `${book.pages} pages`
 }
 
+// Display all books if localStorage is occupied
 function displayBooks() {
   myLibrary.forEach (function (book, i) {
   if (myLibrary[i] != null) {
@@ -87,10 +84,10 @@ function displayBooks() {
     document.getElementById(`title${i+1}`).innerHTML = `${book.title}`
     document.getElementById(`author${i+1}`).innerHTML = `${book.author}`
     document.getElementById(`pages${i+1}`).innerHTML = `${book.pages} pages`
-  }
-  })
+  }})
 }
 
+// Get values that user inputs in the form
 function getInputValue(){
   // Selecting the input element and getting its value 
   let inputTitle = document.getElementById("btitle").value;
@@ -108,12 +105,14 @@ if (display.addEventListener) {
 }
 
 function handler(e) {
+  // Remove specific card and push current cards to localStorage
   if (e.target.classList == 'rbutton') {
     let card = document.getElementById(`card${e.target.id}`)
     card.remove()
     delete myLibrary[e.target.id-1]
     localStorage.setItem("library", JSON.stringify(myLibrary))
   }
+  // Change read status and save status to localStorage
   if (e.target.classList == "read") {
   if (myLibrary[e.target.dataset.index-1].read == true) {
     myLibrary[e.target.dataset.index-1].read = false
@@ -122,16 +121,14 @@ function handler(e) {
     myLibrary[e.target.dataset.index-1].read = true
     localStorage.setItem("library", JSON.stringify(myLibrary))
   }
+  // Update color and innerHTML of a button depending on a read status, as well
   if (e.target.classList == "read" && myLibrary[e.target.dataset.index-1].read == true) {
     e.target.style.backgroundColor = "green"
     e.target.innerHTML = "I've read this book already"
-    localStorage.setItem("library", JSON.stringify(myLibrary))
   }else {
     e.target.style.backgroundColor = "red"
     e.target.innerHTML = "I didn't read it yet"
-    localStorage.setItem("library", JSON.stringify(myLibrary))
   }
-  console.log(myLibrary[e.target.dataset.index-1].read)
   }
 }
 // Event Bubble ends here
