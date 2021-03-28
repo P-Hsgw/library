@@ -26,12 +26,16 @@ function createCard (param) {
   let newRemove = document.createElement("button")
 
   newDiv.classList.add("card")
-  newDiv.setAttribute("id", `${param}`);
+  newDiv.setAttribute("id", `card${param}`);
   newDiv.setAttribute("data-index", `${param}`);
   newTitle.setAttribute("id", `title${param}`);
   newAuthor.setAttribute("id", `author${param}`);
   newPages.setAttribute("id", `pages${param}`);
-  newRemove.innerHTML = "Hello"
+  newRemove.classList.add("rbutton");
+  newRemove.setAttribute("id", `${param}`);
+  newRemove.innerHTML = "Hello";
+  
+
 
   newDiv.appendChild(newTitle)
   newDiv.appendChild(newAuthor)
@@ -49,18 +53,8 @@ function displayBook() {
  document.getElementById(`pages${i}`).innerHTML = `${book.pages} pages`
 }
 
-// function displayBooks() {
-//   myLibrary.forEach (function (book, i) {
-//     createCard (i)
-//     document.getElementById(`title${i}`).innerHTML = `${book.title}`
-//     document.getElementById(`author${i}`).innerHTML = `${book.author}`
-//     document.getElementById(`pages${i}`).innerHTML = `${book.pages} pages`
-//   })
-// }
-
-
 function getInputValue(){
-  // Selecting the input element and get its value 
+  // Selecting the input element and getting its value 
   let inputTitle = document.getElementById("btitle").value;
   let inputAuthor = document.getElementById("bauthor").value;
   let inputPages = document.getElementById("bpages").value
@@ -68,10 +62,22 @@ function getInputValue(){
   addToLibrary(inputTitle, inputAuthor, inputPages, inputRead)
 }
 
+// Event Bubble for buttons inside Cards
+if (display.addEventListener) {
+  display.addEventListener('click', handler, false);
+}else if (display.attachEvent) {
+  display.attachEvent('onclick', handler);
+}
+
+function handler(e) {
+    if (e.target.classList == 'rbutton') {
+      let card = document.getElementById(`card${e.target.id}`)
+      card.remove()
+    }
+}
+// Event Bubble ends here
+
 fbtn.addEventListener("click", () => {
   getInputValue()
   displayBook()
-  console.log(myLibrary)
 })
-
-// document.getElementById("uniqueID").value;
