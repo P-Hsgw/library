@@ -5,13 +5,13 @@ let myLibrary = []
 
 if(!localStorage.getItem('library')) {
   ;
-} else {
-  let retrievedData = localStorage.getItem("library");
-  // myLibrary = JSON.parse(retrievedData);
-  console.log(myLibrary)
-  displayBooks()
-}
+}  else {
+    let retrievedData = localStorage.getItem("library");
+    myLibrary = JSON.parse(retrievedData);
+    console.log(myLibrary)
+    displayBooks()
 
+}
 
 // Remember to handle errors - no input, negative pages, too long input, maximum myLibrary length
 function Book (title, author, pages, read) {
@@ -48,16 +48,19 @@ function createCard (param) {
   newPages.setAttribute("id", `pages${param}`);
   newRemove.classList.add("rbutton");
   newRemove.setAttribute("id", `${param}`);
-  newRemove.innerHTML = "Hello";
+  newRemove.innerHTML = "Remove";
   newRead.classList.add("read")
   newRead.setAttribute("data-index", `${param}`);
   newRead.setAttribute("id", `read${param}`);
-  if (myLibrary[param-1].read == true) {
-    newRead.style.backgroundColor = "green"
-    newRead.innerHTML = "I've read this book already"
-  } else {
-    newRead.style.backgroundColor = "red"
-    newRead.innerHTML = "I didn't read it yet"
+ 
+    if (myLibrary[param-1].read == true) {
+      newRead.style.backgroundColor = "green"
+      newRead.innerHTML = "I've read this book already"
+    } else {
+      newRead.style.backgroundColor = "red"
+      newRead.innerHTML = "I didn't read it yet"
+    
+  
   }
 
   newDiv.appendChild(newTitle)
@@ -79,10 +82,12 @@ function displayBook() {
 
 function displayBooks() {
   myLibrary.forEach (function (book, i) {
+  if (myLibrary[i] != null) {
     createCard(i+1)
     document.getElementById(`title${i+1}`).innerHTML = `${book.title}`
     document.getElementById(`author${i+1}`).innerHTML = `${book.author}`
     document.getElementById(`pages${i+1}`).innerHTML = `${book.pages} pages`
+  }
   })
 }
 
