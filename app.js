@@ -2,17 +2,20 @@ const display = document.querySelector(".display")
 const fbtn = document.getElementById("fbutton")
 
 let myLibrary = [];
-
+// Remember to handle errors - no input, negative pages, too long input, maximum myLibrary length
 function Book (title, author, pages, read) {
   this.title = title
   this.author = author
   this.pages = pages
   this.read = read
-  this.info = function() {
-    return `${title} by ${author}, ${pages} pages, ${(read) ? `read already`: `not read yet`} `
-  }
+
 }
 
+Book.prototype.isRead = function () {
+
+  console.log( "book is read")
+
+}
 function addToLibrary(title, author, pages, read) {
   let newBook = new Book (title, author, pages, read)
   myLibrary.push(newBook)
@@ -24,23 +27,33 @@ function createCard (param) {
   let newAuthor = document.createElement("p");
   let newPages = document.createElement("p");
   let newRemove = document.createElement("button")
+  let newRead = document.createElement("button")
 
   newDiv.classList.add("card")
   newDiv.setAttribute("id", `card${param}`);
-  newDiv.setAttribute("data-index", `${param}`);
+  newDiv.setAttribute("data-index", `card${param}`);
   newTitle.setAttribute("id", `title${param}`);
   newAuthor.setAttribute("id", `author${param}`);
   newPages.setAttribute("id", `pages${param}`);
   newRemove.classList.add("rbutton");
   newRemove.setAttribute("id", `${param}`);
   newRemove.innerHTML = "Hello";
-  
-
+  newRead.classList.add("read")
+  newRead.setAttribute("data-index", `${param}`);
+  newRead.setAttribute("id", `read${param}`);
+  if (myLibrary[param-1].read == true) {
+    newRead.style.backgroundColor = "green"
+    newRead.innerHTML = "I've read this book already"
+  } else {
+    newRead.style.backgroundColor = "red"
+    newRead.innerHTML = "I didn't read it yet"
+  }
 
   newDiv.appendChild(newTitle)
   newDiv.appendChild(newAuthor)
   newDiv.appendChild(newPages)
   newDiv.appendChild(newRemove)
+  newDiv.appendChild(newRead)
   display.appendChild(newDiv)
 }
 
@@ -70,14 +83,32 @@ if (display.addEventListener) {
 }
 
 function handler(e) {
-    if (e.target.classList == 'rbutton') {
-      let card = document.getElementById(`card${e.target.id}`)
-      card.remove()
-    }
+  if (e.target.classList == 'rbutton') {
+    let card = document.getElementById(`card${e.target.id}`)
+    card.remove()
+    delete myLibrary[e.target.id-1]
+  }
+  if (e.target.classList == "read") {
+  if (myLibrary[e.target.dataset.index-1].read == true) {
+    myLibrary[e.target.dataset.index-1].read = false
+  } else {
+    myLibrary[e.target.dataset.index-1].read = true
+  }
+  if (e.target.classList == "read" && myLibrary[e.target.dataset.index-1].read == true) {
+    e.target.style.backgroundColor = "green"
+    e.target.innerHTML = "I've read this book already"
+  }else {
+    e.target.style.backgroundColor = "red"
+    e.target.innerHTML = "I didn't read it yet"
+  }
+  console.log(myLibrary[e.target.dataset.index-1].read)
+  }
 }
 // Event Bubble ends here
 
 fbtn.addEventListener("click", () => {
   getInputValue()
   displayBook()
+  console.log(myLibrary)
+  console.log(myLibrary[0])
 })
