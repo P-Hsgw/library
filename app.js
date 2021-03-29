@@ -31,7 +31,7 @@ function addToLibrary(title, author, pages, read) {
   } else {
     let newBook = new Book (title, author, pages, read)
     myLibrary.push(newBook)
-    localStorage.setItem(" ", JSON.stringify(myLibrary))
+    localStorage.setItem("library", JSON.stringify(myLibrary))
   }
 }
 
@@ -51,11 +51,11 @@ function createCard (param) {
   newAuthor.setAttribute("id", `author${param}`);
   newPages.setAttribute("id", `pages${param}`);
   newRemove.classList.add("rbutton");
-  newRemove.classList.add("dom_button");
+  // newRemove.classList.add("dom_button");
   newRemove.setAttribute("id", `${param}`);
   newRemove.innerHTML = "Remove";
   newRead.classList.add("read")
-  newRead.classList.add("dom_button")
+  // newRead.classList.add("dom_button")
   newRead.setAttribute("data-index", `${param}`);
   newRead.setAttribute("id", `read${param}`);
  
@@ -119,6 +119,7 @@ function handler(e) {
     let card = document.getElementById(`card${e.target.id}`)
     card.remove()
     delete myLibrary[e.target.id-1]
+    console.log("dziala")
     localStorage.setItem("library", JSON.stringify(myLibrary))
   }
   // Change read status and save status to localStorage
@@ -128,6 +129,7 @@ function handler(e) {
     localStorage.setItem("library", JSON.stringify(myLibrary))
   } else {
     myLibrary[e.target.dataset.index-1].read = true
+    console.log("dziala")
     localStorage.setItem("library", JSON.stringify(myLibrary))
   }
   // Update color and innerHTML of a button depending on a read status, as well
@@ -150,7 +152,7 @@ fbtn.addEventListener("click", () => {
 
 // Remove all cards and clear localStorage
 sbtn.addEventListener("click", () => {
-  localStorage.clear("library")
+  localStorage.removeItem("library")
   myLibrary = []
   while (display.firstChild) {
     display.removeChild(display.lastChild);
