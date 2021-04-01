@@ -6,6 +6,7 @@ let myLibrary = []
 
 // If localStorage is occupied - upload content to myLibrary
 if(!localStorage.getItem('library')) {
+  // eslint-disable-next-line no-extra-semi
   ;
 }  else {
   let retrievedData = localStorage.getItem("library");
